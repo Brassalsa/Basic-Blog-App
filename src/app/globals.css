@@ -2,26 +2,112 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --bg: #f1f5f9;
+    --textClr: #0f172a;
+    --softBg: #e2e8f0;
+    --softClr: #1e293b;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+a,
+button {
+  @apply cursor-pointer hover:opacity-70 active:opacity-90 transition-all duration-300;
+}
+
+h1 {
+  @apply text-5xl;
+}
+
+h2 {
+  @apply text-4xl;
+}
+
+h3 {
+  @apply text-3xl;
+}
+
+h4 {
+  @apply text-2xl;
+}
+
+h5 {
+  @apply text-xl;
+}
+
+h6 {
+  @apply text-lg;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-bold;
+}
+
+.dark {
+  --bg: #0f172a;
+  --textClr: #f1f5f9;
+  --softBg: #1e293b;
+  --softClr: #cbd5e1;
+}
+
+.theme {
+  transition: all 1s ease-in;
+}
+
+@keyframes transform-from-right {
+  from {
+    display: none;
+  }
+  5% {
+    display: block;
+  }
+  10% {
+    transform: translateX(200%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+.open-right {
+  animation: transform-from-right 300ms ease-in-out forwards;
+}
+
+.close-right {
+  animation: transform-from-right 300ms ease-in-out forwards;
+  animation-direction: alternate-reverse;
+}
+
+input {
+  background: var(--softBg);
+  color: var(--softClr);
+}
+
+.ql-container {
+  font-size: 28px !important;
+}
+
+.quill > .ql-container > .ql-editor.ql-blank::before {
+  color: var(--softClr);
+}
+
+/* editor css */
+.ce-toolbar__plus,
+.ce-toolbar__settings-btn,
+.ce-popover,
+.ce-popover-item,
+.ce-inline-toolbar--left-oriented,
+.ce-conversion-toolbar {
+  @apply bg-softBg text-softClr;
+}
+
+.ce-popover-item,
+.ce-popover-item__title {
+  @apply text-softClr hover:opacity-90 hover:bg-transparent;
 }
