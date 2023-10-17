@@ -18,10 +18,10 @@ const SinglePage = async ({ params }) => {
 
   return (
     (post && (
-      <div className=" flex flex-col gap-9">
+      <div className="flex flex-col gap-9">
         <div className="flex">
-          <div className="flex-1 w-full">
-            <h1 className="text-3xl lg:text-4xl xl:text-5xl mb-9 break-words">
+          <div className="flex-1 max-w-full">
+            <h1 className="text-3xl lg:text-4xl xl:text-5xl mb-9  break-words">
               {post.title}
             </h1>
             <div className="flex gap-4 items-center">
@@ -38,10 +38,10 @@ const SinglePage = async ({ params }) => {
               )}
               <div className="flex flex-col text-softClr">
                 <span className="font-semibold capitalize">
-                  {post.user.name}
+                  {post.user?.name}
                 </span>
                 <span className="text-xs">
-                  {post.createdAt.substring(0, 10)}
+                  {post.createdAt?.substring(0, 10)}
                 </span>
               </div>
             </div>
@@ -58,13 +58,10 @@ const SinglePage = async ({ params }) => {
             </div>
           )}
         </div>
-        <div className="flex gap-12">
-          <div className="flex-[5] text-base sm:text-lg flex flex-col gap-10">
+        <div className="flex gap-12  max-w-full">
+          <div className="flex-[4] text-base sm:text-lg flex flex-col gap-10 min-w-[70%] max-w-full">
             {/* <div dangerouslySetInnerHTML={{ __html: post.desc }} /> */}
-            <EditorOutput
-              content={post.desc}
-              className={"break-words w-full"}
-            />
+            <EditorOutput content={post.desc} className={"break-words"} />
             <Comments comments={post.comment} postSlug={slug} />
           </div>
           <Menu />

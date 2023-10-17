@@ -41,4 +41,5 @@ next-env.d.ts
 mediaLinks.js
 firebase.js
 
-/prisma
+/prisma/*
+!/prisma/schema.prisma

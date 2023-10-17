@@ -19,7 +19,7 @@ const AuthLinks = () => {
             Write
           </Link>
           <Link href={"/account"} className="hidden sm:block">
-            Account
+            Dashboard
           </Link>
         </>
       ) : (
@@ -58,7 +58,7 @@ const AuthLinks = () => {
                 <Link href="/write" onClick={toggle}>
                   Write
                 </Link>
-                <Link href="/account">Account</Link>
+                <Link href="/account">Dashboard</Link>
               </>
             ) : (
               <Link href="/login" onClick={toggle}>

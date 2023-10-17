@@ -6,13 +6,13 @@ import List from "@editorjs/list";
 import Quote from "@editorjs/quote";
 import { useRef, useEffect } from "react";
 
-const EditorOutput = ({ content, className }) => {
+const EditorOutput = ({ content, className = "", id = "output-editor" }) => {
   const ref = useRef();
 
   useEffect(() => {
     if (!ref.current) {
       const editor = new EditorJS({
-        holder: "output-editor",
+        holder: id,
         onReady: (e) => {
           ref.current = editor;
         },
@@ -28,12 +28,10 @@ const EditorOutput = ({ content, className }) => {
 
     //add a return function handle cleanup
     return () => {
-      if (ref.current && ref.current.destroy) {
-        ref.current.destroy();
-      }
+      ref?.current?.destroy();
     };
   }, []);
-  return <div id="output-editor" className={className}></div>;
+  return <div id={id} className="break-words"></div>;
 };
 
 export default EditorOutput;

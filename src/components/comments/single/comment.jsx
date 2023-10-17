@@ -16,11 +16,11 @@ const Comment = ({ comment }) => {
           />
         </div>
         <div className="flex flex-col text-sm">
-          <span className="font-bold capitalize">{user.name}</span>
+          <span className="font-bold capitalize break-words">{user.name}</span>
           <span className="text-xs">{createdAt.substring(0, 10)}</span>
         </div>
       </div>
-      <p className="text-base font-normal">{desc}</p>
+      <p className="text-base font-normal break-words">{desc}</p>
     </div>
   );
 };

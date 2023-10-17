@@ -94,11 +94,11 @@ const Write = () => {
             <SelectCategories setCat={setCat} cat={cat} />
           </div>
 
-          <input
+          <textarea
             type="text"
             placeholder="Title"
             id="title"
-            className="p-12 text-6xl bg-transparent outline-none "
+            className="p-12 text-6xl bg-transparent outline-none"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required

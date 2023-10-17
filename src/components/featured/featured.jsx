@@ -43,9 +43,9 @@ const Featured = async () => {
               />
             </div>
           )}
-          <div className="flex-1 flex gap-5 flex-col">
-            <h1 className="font-bold text-2xl">{post.title} </h1>
-            <div className="text-lg font-light text-softClr h-24 overflow-clip">
+          <div className="flex-1 flex gap-5 flex-col w-full">
+            <h1 className="font-bold text-2xl break-words">{post.title} </h1>
+            <div className="text-lg font-light text-softClr h-24  break-words overflow-clip">
               <EditorOutput content={post.desc} />
             </div>
             <Link

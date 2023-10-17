@@ -2,7 +2,7 @@
 import { useSession } from "next-auth/react";
 import WriteComment from "./single/commentForm";
 import Comment from "./single/comment";
-import { Suspense } from "react";
+
 import Loading from "@/app/loading";
 import useFetchUrl from "@/utils/fetchUrl";
 

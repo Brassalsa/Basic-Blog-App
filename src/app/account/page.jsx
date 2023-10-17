@@ -23,8 +23,6 @@ const Account = () => {
     return <Error />;
   }
 
-  console.log(data);
-
   return (
     <div className="min-h-[384px]">
       {status === "authenticated" ? (
