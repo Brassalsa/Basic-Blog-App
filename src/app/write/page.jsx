@@ -7,9 +7,7 @@ import { useState } from "react";
 import Loading from "../loading";
 
 import SelectCategories from "./components/selectCategories";
-import uploadImg from "@/utils/imgUpload";
 import { slugify } from "@/utils/slugify";
-import SelectFile from "./components/selectFile";
 
 import dynamic from "next/dynamic";
 
@@ -28,8 +26,6 @@ const Write = ({ data }) => {
   const [err, setErr] = useState("");
 
   // file img
-  const [file, setFile] = useState();
-
   const [media, setMedia] = useState(data?.img);
 
   // content
@@ -37,38 +33,31 @@ const Write = ({ data }) => {
 
   // handle submit
   const handleSubmit = async (e) => {
-    const uploadPost = async (url) => {
-      const res = await fetch("/api/posts/", {
-        method: "POST",
-        body: JSON.stringify({
-          title,
-          desc: content,
-          img: url || media,
-          slug: slugify(title),
-          catSlug: cat,
-          prevTitle: data?.slug,
-        }),
-      });
+    const res = await fetch("/api/posts/", {
+      method: "POST",
+      body: JSON.stringify({
+        title,
+        desc: content,
+        img: media,
+        slug: slugify(title),
+        catSlug: cat,
+        prevTitle: data?.slug,
+      }),
+    });
 
-      if (!res.ok) {
-        const json = await res.json();
-        setErr(json.message);
-        return;
-      }
-      setErr("");
-      router.back();
-    };
+    if (!res.ok) {
+      const json = await res.json();
+      setErr(json.message);
+      return;
+    }
+    setErr("");
+    router.back();
 
     if (!(title && cat && content)) {
       setErr("Please Fill all the fields");
       return;
     }
     // upload image and then post data
-    if (!file && media) {
-      await uploadPost();
-    } else {
-      uploadImg({ file, title, setMedia, cb: uploadPost });
-    }
   };
 
   if (status == "loading") {
@@ -99,17 +88,19 @@ const Write = ({ data }) => {
             type="text"
             placeholder="Title"
             id="title"
-            className="p-12 text-6xl bg-transparent outline-none"
+            className="p-12 text-6xl bg-transparent outline-none
+            border-b "
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
           />
 
           <div className="flex flex-col gap-5  min-h-[700px] ">
-            <span className="flex gap-4 ">
-              <SelectFile setFile={setFile} file={file} />
-            </span>
-
+            <input
+              placeholder="Paste Image Link Here..."
+              className="bg-inherit border-b p-2 outline-none"
+              onChange={(e) => setMedia(e.target.value)}
+            />
             <Editor content={content} setContent={setContent} />
           </div>
         </div>
