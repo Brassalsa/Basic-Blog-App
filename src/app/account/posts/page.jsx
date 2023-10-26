@@ -31,8 +31,12 @@ const AccountPosts = () => {
       {data?.length > 0 ? (
         data?.map((post) => (
           <div className="flex gap-3" key={post.id}>
-            <Card post={post} className={"w-4/5"} />
-            <Link href="/account/posts/edit">✏️</Link>
+            <Card
+              post={post}
+              className={"w-4/5"}
+              href={`/account/posts/${post.slug}`}
+            />
+            <Link href={"/account/posts/edit/" + post.slug}>✏️</Link>
             <a
               className="cursor-pointer"
               onClick={handleDelete(post.slug, post.title?.substring(0, 30))}

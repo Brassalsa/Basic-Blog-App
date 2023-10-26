@@ -9,7 +9,7 @@ import { slugify } from "./slugify";
 
 const storage = getStorage(firebaseApp);
 
-const uploadImg = ({ title = "", file, setMedia, exec }) => {
+const uploadImg = ({ title = "", file, setMedia, cb }) => {
   const name = slugify(title);
   const storageRef = ref(storage, name + ".png");
   const uploadTask = uploadBytesResumable(storageRef, file);
@@ -42,7 +42,7 @@ const uploadImg = ({ title = "", file, setMedia, exec }) => {
     () => {
       getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
         setMedia(downloadURL);
-        await exec(downloadURL);
+        await cb(downloadURL);
       });
     }
   );

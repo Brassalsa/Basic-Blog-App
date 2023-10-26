@@ -17,28 +17,28 @@ let Editor = dynamic(() => import("../../components/editor/editor"), {
   ssr: false,
 });
 
-const Write = () => {
+const Write = ({ data }) => {
   const { status } = useSession();
   const router = useRouter();
 
   // title
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState(data?.title || "");
   //category
-  const [cat, setCat] = useState("");
+  const [cat, setCat] = useState(data?.catSlug || "");
   const [err, setErr] = useState("");
 
   // file img
   const [file, setFile] = useState();
 
-  const [media, setMedia] = useState("");
+  const [media, setMedia] = useState(data?.img);
 
   // content
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState(JSON.parse(data?.desc || null));
 
   // handle submit
   const handleSubmit = async (e) => {
     const uploadPost = async (url) => {
-      const res = await fetch("api/posts", {
+      const res = await fetch("/api/posts/", {
         method: "POST",
         body: JSON.stringify({
           title,
@@ -46,6 +46,7 @@ const Write = () => {
           img: url || media,
           slug: slugify(title),
           catSlug: cat,
+          prevTitle: data?.slug,
         }),
       });
 
@@ -63,10 +64,10 @@ const Write = () => {
       return;
     }
     // upload image and then post data
-    if (!file) {
+    if (!file && media) {
       await uploadPost();
     } else {
-      uploadImg({ file, title, setMedia, exec: uploadPost });
+      uploadImg({ file, title, setMedia, cb: uploadPost });
     }
   };
 
@@ -104,7 +105,7 @@ const Write = () => {
             required
           />
 
-          <div className="flex flex-col gap-5  h-[700px] ">
+          <div className="flex flex-col gap-5  min-h-[700px] ">
             <span className="flex gap-4 ">
               <SelectFile setFile={setFile} file={file} />
             </span>

@@ -22,7 +22,7 @@ const Comments = ({ postSlug }) => {
       <WriteComment status={status} postSlug={postSlug} onSuccess={mutate} />
       <div className="flex flex-col gap-4">
         {data?.map((comment) => (
-          <Comment key={comment.id} comment={comment} />
+          <Comment key={comment.id} comment={comment} mutate={mutate} />
         ))}
       </div>
     </div>

@@ -4,7 +4,7 @@ import EditorOutput from "@/components/editor/output";
 import Menu from "@/components/menu/menu";
 import Image from "next/image";
 
-const getData = async (slug) => {
+export const getPostData = async (slug) => {
   const res = await fetch(`${process.env.SERVER}/api/posts/${slug}`, {
     cache: "no-store",
   });
@@ -14,7 +14,7 @@ const getData = async (slug) => {
 
 const SinglePage = async ({ params }) => {
   const slug = params.slug;
-  const post = await getData(slug);
+  const post = await getPostData(slug);
 
   return (
     (post && (
@@ -60,7 +60,6 @@ const SinglePage = async ({ params }) => {
         </div>
         <div className="flex gap-12  max-w-full">
           <div className="flex-[4] text-base sm:text-lg flex flex-col gap-10 min-w-[70%] max-w-full">
-            {/* <div dangerouslySetInnerHTML={{ __html: post.desc }} /> */}
             <EditorOutput content={post.desc} className={"break-words"} />
             <Comments comments={post.comment} postSlug={slug} />
           </div>

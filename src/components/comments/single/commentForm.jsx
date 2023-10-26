@@ -3,7 +3,12 @@
 import Link from "next/link";
 import { useState } from "react";
 
-const WriteComment = ({ status = "unauthenticated", postSlug, onSuccess }) => {
+const WriteComment = ({
+  status = "unauthenticated",
+  postSlug,
+  onSuccess,
+  comment,
+}) => {
   const [desc, setDesc] = useState("");
   const [err, setErr] = useState();
   const handleSubmit = async () => {

@@ -68,15 +68,27 @@ export const POST = async (req) => {
   }
   try {
     const body = await req.json();
-
-    const post = await prisma.post.create({
-      data: {
-        ...body,
-        desc: JSON.stringify(body.desc),
-        userEmail: session.user.email,
-      },
-    });
-
+    const { prevTitle, ...data } = await body;
+    if (prevTitle) {
+      await prisma.post.update({
+        where: {
+          slug: prevTitle,
+        },
+        data: {
+          ...data,
+          desc: JSON.stringify(data.desc),
+          userEmail: session.user.email,
+        },
+      });
+    } else {
+      const post = await prisma.post.create({
+        data: {
+          ...data,
+          desc: JSON.stringify(data.desc),
+          userEmail: session.user.email,
+        },
+      });
+    }
     return new NextResponse(
       JSON.stringify({ message: "Posted Successfully" }),
       {

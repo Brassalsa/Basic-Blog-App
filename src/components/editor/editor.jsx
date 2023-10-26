@@ -39,7 +39,7 @@ const Editor = ({ content, setContent }) => {
   return (
     <div
       id="edit"
-      className="border-2 border-gray-500 rounded-md py-2 pl-16"
+      className="border-2 border-gray-500 rounded-md py-2 pl-16 min-h-fit"
     ></div>
   );
 };
